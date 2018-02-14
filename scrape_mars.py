@@ -66,7 +66,7 @@ def marsNewsData():
 
     news_data = {}
     paragraph_text = []
-    
+
     base_url = "https://mars.nasa.gov/"
     nasa_url = "https://mars.nasa.gov/news/"
     response_1 = req.get(nasa_url)
@@ -171,8 +171,8 @@ def marsFacts():
     fact_list = pd.read_html(facts_url)
     time.sleep(5)
     facts_df = fact_list[0]
-    facts_df.columns = ['', 'Mars Facts']
-    facts_df.set_index('', inplace=True)
+    facts_df.columns = ['Measure', 'Value']
+    facts_df.set_index('Measure', inplace=True)
     facts_table = facts_df.to_html()
 
     return facts_table
