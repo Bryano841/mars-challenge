@@ -8,28 +8,25 @@ h1.banner_txt {
     text-align: center;
     color: rgb(255,255,255);
 }
-/* button under banner heading text which links to scrape() */
+
 #scrape_btn {
     text-align: center;
 }
 
-/* first text after banner with the latest news from NASA*/
-/* doesn't seem to be working at all */
 #first_text {
   background-color: rgb(127,255,212);
 }
 
-/* nor this. Does bootstrap override normal css? */
-#tweet_box {
-    background-color:rgb(216, 216, 216);
-    padding:5%;
+.container-fluid {
+    background: rgb(216,216,216);
+    outline: .01px double black;
+    padding: 5%;
 }
 
-/* this positions facts table to bottom of current container
-also doesn't seem to be working at all */
-div.facts_table {
-    position:relative;
-    bottom:-50px;
+.data-box {
+    background: rgb(255,255,255);
+    outline: .1px double black;
+    padding: 5%;
 }
 
 figcaption.hemisphere_caption{

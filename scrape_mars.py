@@ -149,11 +149,19 @@ def marsWeather():
     tweet_url = 'https://twitter.com/marswxreport?lang=en'
     browser.visit(tweet_url)
     time.sleep(5)
+
     tweet_html = browser.html
     tweet_soup = bs(tweet_html, 'html.parser')
     time.sleep(5)
-    tweet = tweet_soup.find('p', class_='TweetTextSize TweetTextSize--normal js-tweet-text tweet-text')
-    mars_weather = tweet.text.strip()
+
+    weather_info_list = []
+
+    for weather_info in tweet_soup.find_all('p',class_="TweetTextSize TweetTextSize--normal js-tweet-text tweet-text"):
+        weather_info_list.append(weather_info.text.strip())
+
+    for value in reversed(weather_info_list):
+        if value[:3]=='Sol':
+            mars_weather = value
 
     closeBrowser(browser)
 

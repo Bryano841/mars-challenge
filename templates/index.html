@@ -6,10 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Mars News, Facts, and Images...</title>
-  <!-- reset css -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
-  <link rel="icon" href="data:;base64,iVBORwOKGO=">
+  <link rel="icon" href="data:;base64,iVBORwOKGO="> <!-- Kills favicon.ico error -->
 </head>
 
 <body>
@@ -19,10 +18,10 @@
         <div class="col-md-3">
         </div>
         <div class='col-md-6 text-center'>
-            </br> </br>
+            <br> <br>
             <h1 class="banner_txt"> Mission to Mars </h1>
             <a href="/scrape" id="scrape_btn" class="btn btn-primary" role="button">Scrape New Data</a>
-            </br> </br>
+            <br> <br>
         </div>
         <div class="col-md-3">
         </div>
@@ -32,86 +31,97 @@
         <div class='col-md-1'>
         </div>
         <div class="col-md-10">
-        </br> </br>
-            {% if Nasa_latest_title %}
+        <br> <br>
+            {% if news_title %}
                 <h2>Latest Mars News</h2>
                 <hr>
-                <h3>{{Nasa_latest_title}}</h3>
-                <p> &emsp; {{Nasa_latest_paragraph1}}</p>
-                <p> &emsp; {{Nasa_latest_paragraph2}}</p>
-                </br>
+                <h3>{{news_title}}</h3>
+                <p> {{paragraph_text_1}}</p>
+                <p> {{paragraph_text_2}}</p>
+                <br>
             {% else %}
                 <h2>Click the Scrape New Data button above to get the latest Mars news, facts, and images</h2>
-                </br>
+              <br>
             {% endif %}
         </div>
         <div class='col-md-1'>
         </div>
     </div>
     <hr>
-    <!-- featured_image on the left, latest mars weather tweet on top left, mars facts table under it -->
     <div class='row'>
         <div class='col-md-8'>
+            <h3>Featured Image</h3>
+            <hr>
             <figure>
                 <img src={{featured_image_url}} alt="Featured image for NASA mars page">
             </figure>
         </div>
         <div class='col-md-4'>
-            <div style="background:rgb(216, 216, 216); outline:.01px double black; padding:5%;">
-                <!-- latest weather tweet -->
-                <h3> Current Weather on Mars <hr> </h3>
-                <p> {{mars_weather_tweet}}</p>
-                <p> <a target="_blank" href="https://twitter.com/marswxreport?lang=en"> source </a> </p>
+            <div class="data-box">
+                <h3>Current Weather on Mars</h3>
+                <hr>
+                <p>{{mars_weather_tweet}}</p>
             </div>
-            </br>
-            <!-- facts table -->
-            <div style="background:rgb(216, 216, 216); outline:.01px double black; padding:5%;">
+            <br>
+            <div class="data-box">
                 <h3>Mars Facts</h3>
                 <hr>
-                <!-- table rendered with flask, which uses jinja2. Already includes <table></table> -->
                 {{mars_facts_table|safe}}
-                    <!-- note: the "|safe" means that this variable is a well-formed and trusted HTML. This excludes it from jinja2's
-                    HTML auto-escaping. http://jinja.pocoo.org/docs/dev/templates/#html-escaping  -->
             </div>
-
+            <br>
+            <div class="data-box">
+                <h3>Sources</h3>
+                <hr>
+                <p> <a target="_blank" href="https://mars.nasa.gov/news/"> NASA Mars News Site </a> </p>
+                <p> <a target="_blank" href="https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars"> JPL Mars Space Images </a> </p>
+                <p> <a target="_blank" href="https://twitter.com/marswxreport?lang=en"> Mars Weather Twitter </a> </p>
+                <p> <a target="_blank" href="http://space-facts.com/mars/"> Mars Facts </a> </p>
+                <p> <a target="_blank" href="https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"> Mars Hemisphere Images </a> </p>
+            </div>
         </div>
     </div>
 
-    <!-- Mars hemisphere images section -->
     <div class="row">
         <div class='col-md-12'>
-            <h2 class="text-center"> Mars Hemispheres </h2> <!-- .text-center is from bootstrap 4.0.0 -->
+            <h2 class="text-center"> Mars Hemispheres </h2>
         </div>
     </div>
 
     <div class="row">
         <div class='col-md-6'>
             <figure>
-                <figcaption class="hemisphere_caption"> {{hemis_1_title}} </figcaption>
-                <img src={{hemis_1_img}} alt="Mars hemisphere 1">
+                <figcaption class="hemisphere_caption"> {{hemisphere_title_1}} </figcaption>
+                <img src={{hemisphere_img_1}} alt="Mars hemisphere 1">
             </figure>
         </div>
         <div class='col-md-6'>
             <figure>
-                <figcaption class="hemisphere_caption"> {{hemis_2_title}} </figcaption>
-                <img src={{hemis_2_img}} alt="Mars hemisphere 2">
+                <figcaption class="hemisphere_caption"> {{hemisphere_title_2}} </figcaption>
+                <img src={{hemisphere_img_2}} alt="Mars hemisphere 2">
             </figure>
         </div>
     </div>
     <div class="row">
         <div class='col-md-6'>
             <figure>
-                <figcaption class="hemisphere_caption"> {{hemis_3_title}} </figcaption>
-                <img src={{hemis_3_img}} alt="Mars hemisphere 3">
+                <figcaption class="hemisphere_caption"> {{hemisphere_title_3}} </figcaption>
+                <img src={{hemisphere_img_3}} alt="Mars hemisphere 3">
             </figure>
         </div>
         <div class='col-md-6'>
             <figure>
-                <figcaption class="hemisphere_caption"> {{hemis_4_title}} </figcaption>
-                <img src={{hemis_4_img}} alt="Mars hemisphere 4">
+                <figcaption class="hemisphere_caption"> {{hemisphere_title_4}} </figcaption>
+                <img src={{hemisphere_img_4}} alt="Mars hemisphere 4">
             </figure>
         </div>
     </div>
-  </div> <!-- ends container -->
+    <p>
+      <a href="http://css-validator.org/check/referer">
+      <img style="border:0;width:88px;height:31px"
+          src="http://css-validator.org/images/vcss-blue.png"
+          alt="Valid CSS!" />
+      </a>
+    </p>
+  </div>
 </body>
 </html>
