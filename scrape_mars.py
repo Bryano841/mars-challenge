@@ -13,8 +13,9 @@ import time
 # Initialize splinter Browser object (DRY)
 # --------------------------------------------------------------------------
 def initBrowser():
-    """ Function: Returns splinter Browser object
-        Parameters: None """
+    """ Function: Creates splinter Browser object
+        Parameters: None
+        Returns: Browser object instance """
     return Browser("chrome", headless=False)
     time.sleep(10)
 
@@ -23,7 +24,8 @@ def initBrowser():
 # --------------------------------------------------------------------------
 def closeBrowser(browser):
     """ Function: Closes splinter Browser object
-        Parameters: (1) Browser object instance """
+        Parameters: (1) Browser object instance
+        Returns: None """
     browser.quit()
     time.sleep(10)
 
@@ -171,9 +173,7 @@ def marsFacts():
     fact_list = pd.read_html(facts_url)
     time.sleep(5)
     facts_df = fact_list[0]
-    facts_df.columns = ['Measure', 'Value']
-    facts_df.set_index('Measure', inplace=True)
-    facts_table = facts_df.to_html()
+    facts_table = facts_df.to_html(header=False, index=False)
 
     return facts_table
 
