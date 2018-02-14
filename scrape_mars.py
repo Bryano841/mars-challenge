@@ -13,6 +13,8 @@ import time
 # Initialize splinter Browser object (DRY)
 # --------------------------------------------------------------------------
 def initBrowser():
+    """ Function: Returns splinter Browser object
+        Parameters: None """
     return Browser("chrome", headless=False)
     time.sleep(10)
 
@@ -20,6 +22,8 @@ def initBrowser():
 # Close splinter Browser object (DRY)
 # --------------------------------------------------------------------------
 def closeBrowser(browser):
+    """ Function: Closes splinter Browser object
+        Parameters: (1) Browser object instance """
     browser.quit()
     time.sleep(10)
 
@@ -29,8 +33,11 @@ def closeBrowser(browser):
 # and return one Python dictionary containing all of the scraped data.
 # --------------------------------------------------------------------------
 def scrape():
+    """ Function: Main scrape functionality
+        Calls other functions
+        Parameters: None
+        Returns: combined mars_data dictionary """
 
-    # initializes empty dictionary for return values
     mars_data = {}
 
     mars_data["news_data"] = marsNewsData()
@@ -52,17 +59,40 @@ def scrape():
 # reference later.
 # --------------------------------------------------------------------------
 def marsNewsData():
+    """ Function: Mars news data scraping functionality
+        Scrapes NASA Mars news site @ nasa_url below
+        Returns: news_data dictionary
+        Parameters: None """
 
     news_data = {}
-
+    paragraph_text = []
+    
+    base_url = "https://mars.nasa.gov/"
     nasa_url = "https://mars.nasa.gov/news/"
-    response = req.get(nasa_url)
+    response_1 = req.get(nasa_url)
     time.sleep(5)
-    nasa_soup = bs(response.text, 'html.parser')
-    news_title = nasa_soup.find("div", class_="content_title").text
-    para_text = nasa_soup.find("div", class_="rollover_description_inner").text
+
+    nasa_soup = bs(response_1.text, 'html.parser')
+    soup_div = nasa_soup.find(class_="slide")
+    soup_news = soup_div.find_all('a')
+    news_title = soup_news[1].get_text().strip()
+    soup_p = soup_div.find_all('a', href=True)
+    soup_p_url = soup_p[0]['href']
+    paragraph_url = base_url + soup_p_url
+    response_2 = req.get(paragraph_url)
+    time.sleep(5)
+
+    para_soup = bs(response_2.text, "html.parser")
+    ww_paragraphs = para_soup.find(class_='wysiwyg_content')
+    paragraphs = ww_paragraphs.find_all('p')
+
+    for paragraph in paragraphs:
+        clean_paragraph = paragraph.get_text().strip()
+        paragraph_text.append(clean_paragraph)
+
     news_data["news_title"] = news_title
-    news_data["paragraph_text"] = para_text
+    news_data["paragraph_text_1"] = paragraph_text[0]
+    news_data["paragraph_text_2"] = paragraph_text[1]
 
     return news_data
 # --------------------------------------------------------------------------
@@ -72,6 +102,10 @@ def marsNewsData():
 # featured_image_url.
 # --------------------------------------------------------------------------
 def marsFeaturedImageURL():
+    """ Function: Mars featured image data scraping functionality
+        Scrapes JPL news site @ jpl_url below
+        Parameters: None
+        Returns: featured_image_url string """
 
     browser = initBrowser()
 
@@ -103,6 +137,10 @@ def marsFeaturedImageURL():
 # weather report as a variable called mars_weather
 # --------------------------------------------------------------------------
 def marsWeather():
+    """ Function: Mars twitter weather data scraping functionality
+        Scrapes Twitter for weather news @ tweet_url below
+        Parameters: None
+        Returns: mars_weather string """
 
     browser = initBrowser()
 
@@ -124,6 +162,10 @@ def marsWeather():
 # the table containing facts about the planet including Diameter, Mass, etc.
 # --------------------------------------------------------------------------
 def marsFacts():
+    """ Function: Mars facts data scraping functionality
+        Scrapes Space-Facts site @ facts_url below
+        Parameters: None
+        Returns facts_table string (HTML) """
 
     facts_url = 'https://space-facts.com/mars/'
     fact_list = pd.read_html(facts_url)
@@ -140,6 +182,10 @@ def marsFacts():
 # high resolution images for each of Mars' hemispheres.
 # --------------------------------------------------------------------------
 def marsHemisphereImageURLs():
+    """ Function: Mars hemispheres image data scraping functionality
+        Scrapes USGS site @ usgs_url below
+        Parameters: None
+        Returns: hemisphere_image_urls list """
 
     browser = initBrowser()
 
