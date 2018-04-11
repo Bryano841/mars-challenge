@@ -3,7 +3,7 @@
 ![mission_to_mars](Images/mission_to_mars.jpg)
 
 
-In this assignment, you will build a web application that scrapes various websites for data related to the Mission to Mars and displays the information in a single HTML page. The following outlines what you need to do.
+In this project, you will build a web application that scrapes various websites for data related to the Mission to Mars and displays the information in a single HTML page. The following outlines what you need to do.
 
 ## Step 1 - Scraping
 
@@ -100,7 +100,3 @@ Use MongoDB with Flask templating to create a new HTML page that displays all of
 * Use Pymongo for CRUD applications for your database. For this homework, you can simply overwrite the existing document each time the `/scrape` url is visited and new data is obtained.
 
 * Use Bootstrap to structure your HTML template.
-
-## Copyright
-
-Coding Boot Camp © 2017. All Rights Reserved.
